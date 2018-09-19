@@ -1,30 +1,29 @@
 ---
 title: "Homework One"
-author: "xinyi_lin"
+author: "Xinyi Lin"
 date: "9/18/2018"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include = FALSE}
+library(tidyverse)
 ```
 
-## R Markdown
+##Problem One
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+###Create data frame
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+First, we create a data frame comprised of:
 
-```{r cars}
-summary(cars)
-```
+*   A random sample of size 10 from a uniform[0, 5] distribution
 
-## Including Plots
+*   A logical vector indicating whether elements of the sample are greater than 2
 
-You can also embed plots, for example:
+*   A (length-10) character vector
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+*   A (length-10) factor vector
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+-A random sample of size 10 from a uniform[0, 5] distribution
+-A logical vector indicating whether elements of the sample are greater than 2
+-A (length-10) character vector
+-A (length-10) factor vector
