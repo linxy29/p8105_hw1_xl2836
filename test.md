@@ -34,6 +34,11 @@ ggplot(plot_df, aes(x = x, y = y)) + geom_point()
 
 ![](test_files/figure-markdown_github/yx_scatter-1.png)
 
+Text formatting
+---------------
+
+*italic* or *italic* **bold** or **bold** `code` superscript<sup>2</sup> and subscript<sub>2</sub>
+
 Headings
 --------
 

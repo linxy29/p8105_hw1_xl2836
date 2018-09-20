@@ -34,6 +34,14 @@ Next we show a scatterplot of `y` vs `x`.
 ggplot(plot_df, aes(x = x, y = y)) + geom_point()
 ```
 
+Text formatting 
+------------------------------------------------------------
+
+*italic*  or  _italic_
+**bold**  or  __bold__
+`code`
+superscript^2^ and subscript~2~
+
 Headings
 ------------------------------------------------------------
 
@@ -47,9 +55,9 @@ Headings
 Lists
 ------------------------------------------------------------
 
-*   Bulleted list item 1
+* Bulleted list item 1
 
-*   Item 2
+* Item 2
 
     * Item 2a
 
