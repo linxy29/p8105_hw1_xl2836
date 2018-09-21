@@ -16,7 +16,7 @@ library(ggplot2)
 
 First, I create a data frame comprised of:
 
-* A random sample of size 10 from a uniform[0, 5] distribution
+* A random sample of size 10 from a uniform [0, 5] distribution
 
 * A logical vector indicating whether elements of the sample are greater than 2
 
@@ -28,13 +28,13 @@ First, I create a data frame comprised of:
 set.seed(13)
 rs_p1 = runif(10,0,5)     # create random_sample
 
-lv_p1 = as.logical(ifelse(rs_p1 > 2, 1, 0))   # create logical vector
+lv_p1 = rs_p1 > 2   # create logical vector
 
 cv_p1 = c("A", "N", "A", "P", "P", "L", "E", "A", "N", "D")    # create character vector
 
 fv_p1 = factor(c("A", "N", "A", "P", "P", "L", "E", "A", "N", "D"))      # create factor vector
 
-df_p1 = data.frame(rs_p1, lv_p1, cv_p1, fv_p1)   # create data frame
+df_p1 = tibble(rs_p1, lv_p1, cv_p1, fv_p1)   # create data frame
 
 df_p1  # show data frame
 ```
@@ -55,7 +55,7 @@ mean(cv_p1)   #get the mean of cv_p1
 mean(fv_p1)   #get the mean of fv_p1
 ```
 
-I found out that only the mean of the random sample and the logical vector can be calculated. As only numbers have a mean, I cannot get the mean of the character vector or the factor vector. Hoever, when I get the mean of the logical vector, as R convert "TRUE" to 1 and "FALSE" to 0, I can get one.
+I found out that only the mean of the random sample and the logical vector can be calculated. As only numbers have a mean, I cannot get the mean of the character vector or the factor vector. But when I get the mean of the logical vector, as R convert "TRUE" to 1 and "FALSE" to 0, I can get one.
 
 ### Convert variables
 I try to apply the `as.numeric` function to the logical, character, and factor variables, but only show the chunk without output. So only the R code can be seen. But if I run the R code, I found out that the factor vector and the logical vector can be converted to numeric vectors. Each element in factor vector was converted to the order of that level. While in logical vector, The "TRUE" was converted to 1 and the "FALSE" was converted to 0. The character vector canot be converted to any number, so the result is combination of "NA".
@@ -68,14 +68,16 @@ as.numeric(cv_p1)
 as.numeric(fv_p1)
 ```
 
-Then, I try to convert character variable from character to factor to numeric and convert factor variable from factor to character to numeric. I foud out that the character variable was converted to factor and to numeric successfuly, as character can be converted to factor and factor can be converted to numeric. However, character cannot be converted to numeric as shown above. So factor variable was converted to character but fail to convert to numeric.
+Then, I try to convert character variable from character to factor to numeric and convert factor variable from factor to character to numeric. I found out that the character variable was converted to factor then to numeric successfuly, as characters can be converted to factors and factors can be converted to numbers. However, a character vector cannot be converted to a numeric vector as shown above. So the factor variable was converted to character variable but fail to convert to numeric variable.
 
 ```{r factor_convert}
-as.factor(cv_p1)
-as.numeric(as.factor(cv_p1))
+cv_p1_fac = as.factor(cv_p1)    # first convert to factor
+cv_p1_fac
+as.numeric(cv_p1_fac)    # then convert to numeric
 
-as.character(fv_p1)
-as.numeric(as.character(fv_p1))
+fv_p1_cha = as.character(fv_p1)    # first convert to character
+fv_p1_cha
+as.numeric(fv_p1_cha)    # then convert to numeric
 ```
 
 ## Problem 2
@@ -96,20 +98,22 @@ First, I create a data frame comprised of:
 
 ```{r create_df_p2}
 set.seed(13)
+
 x_p2 = rnorm(1000)       # create x
 
-set.seed(3)
 y_p2 = rnorm(1000)       # create y
 
-lv_p2 = as.logical(ifelse(x_p2 + y_p2 > 0, 1, 0))   # create logical vector
+lv_p2 = x_p2 + y_p2 > 0   # create logical vector
 
 nv_p2 = as.numeric(lv_p2)     # create numeric vector
 
 fv_p2 = as.factor(lv_p2)    # create factor vector
 
-df_p2 = data.frame(x_p2, y_p2, lv_p2, nv_p2, fv_p2)   # create data frame
+df_p2 = tibble(x_p2, y_p2, lv_p2, nv_p2, fv_p2)   # create data frame
 head(df_p2)      #show first few lines of data frame
 ```
+
+First few lines of the data frame is shown above.
 
 ### Short discription
 
@@ -117,11 +121,9 @@ The observations number of data frame df_p2 is `r nrow(df_p2)` and the variables
 
 The mean of x is `r mean(x_p2)` and the median of x is `r median(x_p2)`.
 
-The proportion of cases for which the logical vector is TRUE is `r sum(lv_p2, na.rm = TRUE)/length(lv_p2)`
+The proportion of cases for which the logical vector is TRUE is `r sum(lv_p2)/length(lv_p2)`
 
 ### Print scatterplots
-
-Make a scatterplot of y vs x; color points using the logical variable (adding color = ... inside of aes in your ggplot code should help). Make a second and third scatterplot that color points using the numeric and factor variables, respectively, and comment on the color scales.
 
 I make first scatterplot of y vs x which use logical variable to decide color points.
 
@@ -144,7 +146,7 @@ pic3_p2 = ggplot(df_p2, aes(x = x_p2, y = y_p2, color = fv_p2)) + geom_point()
 pic3_p2
 ```
 
-Even though these three pictures both 
+Even though these three pictures look the same except for difference in color, the logic behind then are different. The first and third pictures' color points are decieded by logical and factor vectors, so the color points in these two pictures are both seperated into two groups, thus they both show in two different colors. However, second picture's color points use the numeric variable, so they are shown in different color shades which represent different numbers.
 
 At last, I use `ggsave` to export my first scatterplot to my project directory.
 
